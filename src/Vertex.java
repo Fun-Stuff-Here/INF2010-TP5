@@ -19,7 +19,7 @@ public class Vertex implements Comparable<Vertex> {
     public String toString(){
         StringBuilder o = new StringBuilder();
         String ln = System.getProperty("line.separator");
-        o.append(cost + " to "+ path);
+        o.append(cost + " to "+ index);
         return o.toString();
     }
 }

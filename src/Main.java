@@ -19,7 +19,7 @@ public class Main {
 
         System.out.println(graph.toString());
         System.out.println(graph2.toString());
-        System.out.println(graph2.findLowestCost());
+        //System.out.println(graph2.findLowestCost());
     }
 
 }

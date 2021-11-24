@@ -31,7 +31,7 @@ public class DirectedGraphWeighted {
         o.append(nodeCapacity).append(ln).append(graphConnections).append(ln);
         for(int v=0; v<nodeCapacity; v++){
             for (Vertex w:neighbours[v])
-                o.append(v + "->" + w.toString()).append(ln);
+                o.append(v + " connected with " + w.toString()).append(ln);
         }
         return o.toString();
     }
@@ -51,8 +51,11 @@ public class DirectedGraphWeighted {
 
         Heap vertices = new Heap(nodeCapacity + 1);
         /* TODO Add all of the vertices to the Heap start at Index 1. The default cost should be the largest possible value */
-        /* NE PAS MODIFIER CE CODE */
+        for(int v=0; v<nodeCapacity; v++){
+            vertices.add(new Vertex(Integer.MAX_VALUE,v));
+        }
 
+        /* NE PAS MODIFIER CE CODE */
         while(true){
             Vertex v = vertices.findSmallestUnknown();
             if(v == null) break;
@@ -60,10 +63,23 @@ public class DirectedGraphWeighted {
             for(Vertex w: adj(v.index)){
                 /* TODO Evaluate each edge to see if the total cost is less than the cost contained in nodes. */
                 /* TODO Decrease the cost of the vertex in the Heap using decreaseKey if conditions are met */
+                if(!w.known){
+                    int stuff =1; /*TODO comment on get le poid entre v et w ?!?!*/
+                    if(v.cost + stuff <w.cost){
+                        vertices.decreaseKey(w,v.cost + stuff);
+                        w.path = v;
+                    }
+                }
+
             }
         }
 
         /*TODO Add up the total cost of the elements in the Heap */
+        while (!vertices.isEmpty){
+            Vertex v = vertices.poll();
+            totalCost += v.cost;
+            v= v.path;
+        }
 
         return totalCost;
     }
