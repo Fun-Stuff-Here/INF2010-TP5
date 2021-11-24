@@ -13,6 +13,13 @@ public class Vertex implements Comparable<Vertex> {
     @Override
     public int compareTo(Vertex o) {
         /* Implement comparison between the cost of two edges */
-        return -1;
+        return Integer.compare(this.cost, o.cost);
+    }
+
+    public String toString(){
+        StringBuilder o = new StringBuilder();
+        String ln = System.getProperty("line.separator");
+        o.append(cost + " to "+ path);
+        return o.toString();
     }
 }
