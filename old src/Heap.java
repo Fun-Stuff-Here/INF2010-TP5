@@ -1,6 +1,6 @@
 import java.util.*;
 public class Heap {
-    public final Vertex[] Heap;
+    private final Vertex[] Heap;
     private int size;
     private final int maxsize;
 
@@ -74,13 +74,13 @@ public class Heap {
 
     /*TODO Find the vertex in the heap using the index and decrease the key and heapify the elements. */
     public void decreaseKey(Vertex v, int newCost){
-
+        Heap[v.index].cost = Heap[v.index].cost-newCost;
+        minHeapify(v.index);
     }
 
     /*TODO Find the smallest cost unknown Vertex */
     public Vertex findSmallestUnknown(){
-
-        return null;
+        return Arrays.stream(Heap).filter(v->!v.known).findFirst().get();
     }
 
     public Vertex poll() {

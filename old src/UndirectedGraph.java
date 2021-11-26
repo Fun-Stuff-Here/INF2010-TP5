@@ -1,9 +1,9 @@
 import java.util.HashSet;
 
 public class UndirectedGraph implements Graph {
-    public HashSet<Integer>[] neighbours;
-    public int nodeQuantity;
-    public int graphEdges;
+    private HashSet<Integer>[] neighbours;
+    private int nodeQuantity;
+    private int graphEdges;
 
     @Override
     public void initialize(int numNodes) {
@@ -16,6 +16,10 @@ public class UndirectedGraph implements Graph {
     @Override
     public void connect(int v1, int v2){
         /*TODO Implement necessary conditions for connect and justify each condition */
+        if(v1<0 || v1>=nodeQuantity) return; //check that v1 is a valid node in the graph, we can only connect edges to existing node
+        if(v2<0 || v2>=nodeQuantity) return; //check that v2 is a valid node in the graph, we can only connect edges to existing node
+        if(neighbours[v1].contains(v2)) return; // check if edge is already in the graph, we don't allow duplicate edges
+
         neighbours[v1].add(v2);
         neighbours[v2].add(v1);
         graphEdges++;
