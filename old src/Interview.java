@@ -5,14 +5,16 @@ import java.util.PriorityQueue;
 public class Interview {
     private static final int[][] DIRECTIONS = {{0,1}, {0,-1}, {1,0}, {-1,0}};
 
-    public int minCost(Cell[][] grid) {
+    public int minCost(int[][] grid) {
         /* Ne pas modifier ce code */
         int m = grid.length, n = grid[0].length;
         int maxPosX = m - 1,maxPosY = n - 1 ;
 
         Cell[][] costs = new Cell[m][n];
         for (Cell[] cells : costs){
-            Arrays.fill(cells, new Cell(0,0, Integer.MAX_VALUE));
+            for(Cell c: cells ){
+                c.cost = Integer.MAX_VALUE;
+            }
         }
         costs[0][0].cost = 0;
 
