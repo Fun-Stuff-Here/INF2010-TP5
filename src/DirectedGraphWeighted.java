@@ -7,12 +7,20 @@ public class DirectedGraphWeighted {
 
     /* TODO Initialize de DirectedGraph */
     public void initialize(int numNodes) {
-        //
+        vertexCapacity = numNodes;
+        edgeQuantity = 0;
+        neighbours = new HashSet[numNodes];
+        for(int i = 0; i < numNodes; i++) neighbours[i] = new HashSet();
     }
 
     /*TODO Create an edge between the vertices - Veuillez vous referez aux notes de cours */
     public void connect(int v1, Vertex vertex){
-        //
+        if(v1<0 || v1> vertexCapacity) return; //check that v1 is a valid node in the graph, we can only connect edges to existing node
+        if(vertex.index <0 || vertex.index> vertexCapacity) return; //check that vertex is a valid node in the graph, we can only connect edges to existing node
+        if(neighbours[v1].contains(vertex)) return;// check if edge is already in the graph, we don't allow duplicate edges
+
+        neighbours[v1].add(vertex);
+        edgeQuantity++;
     }
 
     /* TODO Print all the edges connecting vertices*/
@@ -20,12 +28,16 @@ public class DirectedGraphWeighted {
         StringBuilder o = new StringBuilder();
         String ln = System.getProperty("line.separator");
         o.append(vertexCapacity).append(ln).append(edgeQuantity).append(ln);
+        for(int v=0; v<vertexCapacity; v++){
+            for (Vertex w:neighbours[v])
+                o.append(v + " connected with " + w.cost + " to " + w.index).append(ln);
+        }
         return o.toString();
     }
 
     /* TODO Return a HashMap of adjacent edges / vertices */
     public HashSet<Vertex> adj(int v) {
-        return new HashSet<>();
+        return (v<0 || v>vertexCapacity)?new HashSet<>():neighbours[v];
     }
 
     public DirectedGraphWeighted(int numNodes){
