@@ -18,7 +18,7 @@ public class Tests {
         vertexTests();
         DirectedGraphWeightedTests();
         HeapTests();
-        DijkstraTests();
+        //DijkstraTests();
     }
 
     public void undirectedGraphTests(){

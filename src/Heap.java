@@ -76,6 +76,7 @@ public class Heap {
     public void decreaseKey(Vertex v, int newCost){
         int i =0;
         for(; i<Heap.length; i++) if(Heap[i] !=null && Heap[i].index == v.index) break;
+        if(i == Heap.length) return; //return if v is not in the heap
         Heap[i].cost = newCost;
         minHeapify(i);
     }
