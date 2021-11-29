@@ -52,6 +52,7 @@ public class DirectedGraphWeighted {
         /* NE PAS MODIFIER CE CODE */
 
         /* TODO Add all of the vertices to the Heap start at Index 1. The default cost should be the largest possible value for an integer */
+        for(int v=1; v<vertexCapacity;v++) vertices.add(new Vertex(Integer.MAX_VALUE,v));
 
         while(true){
             Vertex v = vertices.findSmallestUnknown();
@@ -60,10 +61,23 @@ public class DirectedGraphWeighted {
             for(Vertex w: adj(v.index)){
                 /* TODO Evaluate each edge to see if the total cost is less than the cost contained in nodes. */
                 /* TODO Decrease the cost of the vertex in the Heap using decreaseKey if conditions are met */
+                int i =0;
+                for(; i<vertices.Heap.length; i++) if(vertices.Heap[i] !=null && vertices.Heap[i].index == w.index) break;
+                if(i >= vertices.Heap.length) continue; //continue if w is not in the heap
+
+                if(v.cost + w.cost < vertices.Heap[i].cost){
+                    vertices.decreaseKey(w,v.cost + w.cost>0?v.cost + w.cost:w.cost);
+                    w.path = v;
+
+                }
+
             }
         }
 
         /*TODO Add up the total cost of the elements in the Heap */
+        while (!vertices.isEmpty)
+            totalCost += vertices.poll().cost;
+
 
         return totalCost;
     }
