@@ -19,6 +19,7 @@ public class Tests {
         DirectedGraphWeightedTests();
         HeapTests();
         DijkstraTests();
+        InterviewTests();
     }
 
     public void undirectedGraphTests(){
@@ -108,8 +109,8 @@ public class Tests {
         int index = Integer.MAX_VALUE;
         for(int i = 1; i < 3;i++){
             if(v == heap.Heap[i].index){
-              index = i;
-              break;
+                index = i;
+                break;
             }
         }
         heap.decreaseKey(new Vertex(1,1), 1);
@@ -143,6 +144,59 @@ public class Tests {
             return;
         }
         System.out.println("DijkstraTest1 failed");
+    }
+
+
+    public void InterviewTests(){
+        Cell[][] grid = new Cell[3][3];
+        grid[0][0] = new Cell(0,0,1);
+        grid[1][0] = new Cell(1,0,1);
+        grid[2][0] = new Cell(2,0,1);
+        grid[0][1] = new Cell(0,1,1);
+        grid[1][1] = new Cell(1,1,1);
+        grid[2][1] = new Cell(2,1,1);
+        grid[0][2] = new Cell(0,2,1);
+        grid[1][2] = new Cell(1,2,1);
+        grid[2][2] = new Cell(2,2,1);
+        interviewTest1(grid);
+        for(int i = 0; i < 3; i++){
+            grid[0][i].cost = 2;
+        }
+        interviewTest2(grid);
+        grid[0][0].cost = 1;
+        grid[1][0].cost = 1;
+        grid[2][0].cost = 3;
+        grid[0][1].cost = 3;
+        grid[1][1].cost = 2;
+        grid[2][1].cost = 2;
+        grid[0][2].cost = 1;
+        grid[1][2].cost = 1;
+        grid[2][2].cost = 1;
+        interviewTest3(grid);
+    }
+
+    public void interviewTest1(Cell[][] grid){
+        if(interview.minCost(grid) == 2){
+            System.out.println("interviewTest1 passed");
+            return;
+        }
+        System.out.println("interviewTest1 failed");
+    }
+
+    public void interviewTest2(Cell[][] grid){
+        if(interview.minCost(grid) == 3){
+            System.out.println("interviewTest2 passed");
+            return;
+        }
+        System.out.println("interviewTest2 failed");
+    }
+
+    public void interviewTest3(Cell[][] grid){
+        if(interview.minCost(grid) == 0){
+            System.out.println("interviewTest3 passed");
+            return;
+        }
+        System.out.println("interviewTest3 failed");
     }
 
 }
