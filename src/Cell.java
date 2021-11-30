@@ -13,4 +13,9 @@ public class Cell implements Comparable<Cell>{
     public int compareTo(Cell o) {
         return Integer.compare(this.cost,o.cost);
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(cost)+ " ";
+    }
 }

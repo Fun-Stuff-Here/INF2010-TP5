@@ -159,7 +159,7 @@ public class Tests {
         grid[1][2] = new Cell(1,2,1);
         grid[2][2] = new Cell(2,2,1);
         interviewTest1(grid);
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < 3; i++) {
             grid[0][i].cost = 2;
         }
         interviewTest2(grid);
