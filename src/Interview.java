@@ -1,5 +1,3 @@
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class Interview {
@@ -25,7 +23,7 @@ public class Interview {
         while (!heap.isEmpty()) {
 
             Cell curr = heap.poll();
-            int x = curr.xPos, y = curr.yPos, cost = curr.cost;
+            int x = curr.xPos, y = curr.yPos;
 
             if (heap.isEmpty()&& x ==maxPosX && y == maxPosY
                     /*TODO Condition si on arrive à la fin de la matrice */)
