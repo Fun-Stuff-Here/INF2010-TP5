@@ -61,13 +61,19 @@ public class DirectedGraphWeighted {
             Vertex v = vertices.findSmallestUnknown();
             if(v == null) break;
             v.known = true;
+
+            /* TODO Evaluate each edge to see if the total cost is less than the cost contained in nodes. */
+            /* Le nombre d'itération maximale serait de edgeQuantity dans le cas où tous les arcs sont connecté à un seul noeud,
+             * et minimale de 0 lorsque le noeud n'a pas de voisin*/
             for(Vertex w: adj(v.index)){
-                /* TODO Evaluate each edge to see if the total cost is less than the cost contained in nodes. */
-                /* TODO Decrease the cost of the vertex in the Heap using decreaseKey if conditions are met */
+
                 int i =0;
                 for(; i<vertices.Heap.length; i++) if(vertices.Heap[i] !=null && vertices.Heap[i].index == w.index) break;
                 if(i >= vertices.Heap.length) continue; //continue if w is not in the heap
 
+                /* TODO Decrease the cost of the vertex in the Heap using decreaseKey if conditions are met */
+                /* Dans le pire cas, le nombre de modification du coût pour un sommet est de edgeQuantity
+                 * puisque ce serait le cas où chaque arc donne un nouveau coût minimale pour se rendre au sommet.*/
                 if(v.cost + w.cost < vertices.Heap[i].cost){
                     vertices.decreaseKey(w,v.cost + w.cost>0?v.cost + w.cost:w.cost);
                     w.path = v;
@@ -75,7 +81,11 @@ public class DirectedGraphWeighted {
             }
         }
 
-        /*TODO Add up the total cost of the elements in the Heap */
+        /* TODO Add up the total cost of the elements in the Heap */
+        /* Le nombre d'itérations pour la boucles dépends du nombres de sommets.
+         * a. 10   sommets : 10   itérations
+         * b. 100  sommets : 100  itérations
+         * c. 1000 sommets : 1000 itérations*/
         while (!vertices.isEmpty)
             totalCost += vertices.poll().cost;
 
