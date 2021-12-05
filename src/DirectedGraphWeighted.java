@@ -1,3 +1,5 @@
+import java.security.InvalidParameterException;
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class DirectedGraphWeighted {
@@ -6,11 +8,13 @@ public class DirectedGraphWeighted {
     public int edgeQuantity;
 
     /* TODO Initialize de DirectedGraph */
+    @SuppressWarnings("unchecked")
     public void initialize(int numNodes) {
+        if(numNodes < 0) throw new InvalidParameterException();
         vertexCapacity = numNodes;
         edgeQuantity = 0;
         neighbours = new HashSet[numNodes];
-        for(int i = 0; i < numNodes; i++) neighbours[i] = new HashSet();
+        for(int v = 0; v < numNodes; v++) neighbours[v] = new HashSet<>();
     }
 
     /*TODO Create an edge between the vertices - Veuillez vous referez aux notes de cours */
@@ -18,7 +22,6 @@ public class DirectedGraphWeighted {
         if(v1<0 || v1> vertexCapacity) return; //check that v1 is a valid node in the graph, we can only connect edges to existing node
         if(vertex.index <0 || vertex.index> vertexCapacity) return; //check that vertex is a valid node in the graph, we can only connect edges to existing node
         if(neighbours[v1].contains(vertex)) return;// check if edge is already in the graph, we don't allow duplicate edges
-
         neighbours[v1].add(vertex);
         edgeQuantity++;
     }
@@ -28,9 +31,9 @@ public class DirectedGraphWeighted {
         StringBuilder o = new StringBuilder();
         String ln = System.getProperty("line.separator");
         o.append(vertexCapacity).append(ln).append(edgeQuantity).append(ln);
-        for(int v=0; v<vertexCapacity; v++){
-            for (Vertex w:neighbours[v])
-                o.append(v + " connected with " + w.cost + " to " + w.index).append(ln);
+        for(int v = 0; v < edgeQuantity; v++){
+            for (Vertex vertex : neighbours[v] )
+                o.append(v).append(" is connected to ").append(vertex.index).append(" with a cost of ").append(vertex.cost).append(ln);
         }
         return o.toString();
     }
@@ -68,16 +71,13 @@ public class DirectedGraphWeighted {
                 if(v.cost + w.cost < vertices.Heap[i].cost){
                     vertices.decreaseKey(w,v.cost + w.cost>0?v.cost + w.cost:w.cost);
                     w.path = v;
-
                 }
-
             }
         }
 
         /*TODO Add up the total cost of the elements in the Heap */
         while (!vertices.isEmpty)
             totalCost += vertices.poll().cost;
-
 
         return totalCost;
     }

@@ -12,31 +12,32 @@ public class Interview {
         int maxPosX = m - 1,maxPosY = n - 1 ;
 
         Cell[][] costs = new Cell[m][n];
-        for (Cell[] cells : costs){
-            for(int i=0;i< cells.length;++i){
-                cells[i]=new Cell(0,0, Integer.MAX_VALUE);
-            }
-        }
+        for(int i=0; i<costs.length;++i)
+            for(int j=0; j<costs[0].length;++j)
+                costs[i][j]=new Cell(0,0, Integer.MAX_VALUE);
+
         costs[0][0].cost = 0;
 
         PriorityQueue<Cell> heap = new PriorityQueue<>();
-        heap.add(new Cell(0,0,0)); // Index 0: x , Index 1: y, Index 2 : cout
+        heap.offer(new Cell(0,0,0)); // Index 0: x , Index 1: y, Index 2 : cout
         /* Ne pas modifier ce code */
 
         while (!heap.isEmpty()) {
 
             Cell curr = heap.poll();
+            int x = curr.xPos, y = curr.yPos, cost = curr.cost;
 
-            if (heap.isEmpty()&&curr.xPos ==maxPosX && curr.yPos == maxPosY/*TODO Condition si on arrive à la fin de la matrice */)
+            if (heap.isEmpty()&& x ==maxPosX && y == maxPosY
+                    /*TODO Condition si on arrive à la fin de la matrice */)
                 return costs[maxPosX][maxPosY].cost;
 
             for (int i = 0; i < DIRECTIONS.length; i++) {
                 int[] dir = DIRECTIONS[i];
-                int newX = curr.xPos + dir[0], newY = curr.yPos + dir[1];
+                int newX = x+ dir[0], newY = y + dir[1];
                 if (newX<0 || newX>maxPosX || newY<0 || newY>maxPosY
                     /*TODO Condition qui assure qu'on est toujours dans les bornes de la matrice */) continue;
 
-                int newCost = grid[curr.xPos][curr.yPos].cost == i+1 ? costs[curr.xPos][curr.yPos].cost: costs[curr.xPos][curr.yPos].cost+1; /*TODO Calculer le nouveau cout selon le deplacement*/;
+                int newCost = grid[x][y].cost == (i+1) ? costs[x][y].cost: costs[x][y].cost+1; /*TODO Calculer le nouveau cout selon le deplacement*/
 
                 if (costs[newX][newY].cost > newCost) {
                     /*TODO Mettre le nouveau cout au bonne emplacement dans la matrice & l'ajouter au heap.*/

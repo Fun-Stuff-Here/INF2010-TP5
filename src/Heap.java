@@ -74,17 +74,18 @@ public class Heap {
 
     /*TODO Find the vertex in the heap using the index and decrease the key and heapify the elements. */
     public void decreaseKey(Vertex v, int newCost){
-        int i =0;
-        for(; i<Heap.length; i++) if(Heap[i] !=null && Heap[i].index == v.index) break;
-        if(i >= Heap.length) return; //return if v is not in the heap
-        Heap[i].cost = newCost;
-        minHeapify(v.index);
+        for(int i = 1; i < Heap.length; i++){
+            if (Heap[i] != null && Heap[i].index == v.index){
+                Heap[i].cost = newCost;
+                minHeapify(i);
+                return;
+            }
+        }
     }
 
     /*TODO Find the smallest cost unknown Vertex */
     public Vertex findSmallestUnknown(){
-        Optional<Vertex> result = Arrays.stream(Heap).filter(v->v!=null &&!v.known).findFirst();
-        return result.isPresent()? result.get():null;
+        return Arrays.stream(Heap).filter(v->v!=null &&!v.known).findFirst().orElse(null);
     }
 
     public Vertex poll() {
