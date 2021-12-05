@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Arrays;
 public class Heap {
     public final Vertex[] Heap;
     private int size;
